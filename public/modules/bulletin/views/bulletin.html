@@ -1,0 +1,183 @@
+<px-card class="grey-text">
+	<!-- Tabs -->
+	<div class="ws-header">
+    <h1 class="ws-header__title"> Service Bulletins </h1>
+  </div>
+  <div class="layout layout--left nav layout__padding">
+    <div class="layout__item u-1/6 nav__item nav-tab"
+			ng-click="sbm.setSelectedTab(tab)"
+      ng-repeat="tab in sbm.tabs"
+      ng-show="tab.active"
+      ng-class="{'nav__item--selected' : tab.selected}">
+      <span class="nav__item__text .u-p--">
+      {{tab.name}} ({{tab.count}})
+      </span>
+    </div>
+		<div class="layout__item u-1/6" style="margin-left: auto;">
+			<dropdown-component dropdown-id="engineModelDropdown"
+				dropdown-options="sbm.models"
+				char-width="10"
+				event-handler="sbm.selectModel(e)"
+				selected-item="{{sbm.selectedModel}}"
+				select-msg="Select Model">
+			</dropdown-component>
+		</div>
+		<div class="layout__item u-1/6 pointer" ng-click="sbm.clearFilter()">
+			<span class="pull-right">
+				<i class="fa fa-filter"></i>
+				Show filters
+			</span>
+		</div>
+		<div class="layout__item u-1/6">
+			<div style="display:inline-block; min-width:3em;" class="pull-right">
+				<dropdown-component dropdown-id="pageItemsDropdown"
+					dropdown-options="sbm.pageItems"
+					char-width="10"
+					event-handler="sbm.selectItemsPerPage(e)"
+					selected-item="20"
+					select-msg="Select">
+				</dropdown-component>
+				</px-dropdown>
+			</div>
+			<div style="display:inline-block; margin-right: .5em;" class="pull-right">Rows per page </div>
+		</div>
+  </div>
+
+	<!-- Table -->
+	<div>
+		<table class="sb-table" cellspacing="0"  cellpadding="0">
+		  <thead class="bulletin-tableHead">
+		    <tr>
+					<th class="sb-table__cell status__column"></th>
+					<th class="sb-table__cell sb-table__header__date" ng-click="sbm.sortColumn('date')">
+						Date
+						<i class="fa fa-chevron-up" ng-show="!sbm.reverse" ng-if="sbm.sortedBy === 'date'"></i>
+						<i class="fa fa-chevron-down" ng-show="sbm.reverse" ng-if="sbm.sortedBy === 'date'"></i>
+					</th>
+					<th class="sb-table__cell sb-table__header" ng-click="sbm.sortColumn('sb_number')">
+						SB#
+						<i class="fa fa-chevron-up" ng-show="!sbm.reverse" ng-if="sbm.sortedBy === 'sb_number'"></i>
+						<i class="fa fa-chevron-down" ng-show="sbm.reverse" ng-if="sbm.sortedBy === 'sb_number'"></i>
+					</th>
+					<th class="sb-table__cell sb-table__header__title" ng-click="sbm.sortColumn('title')">
+						Title
+						<i class="fa fa-chevron-up" ng-show="!sbm.reverse" ng-if="sbm.sortedBy === 'title'"></i>
+						<i class="fa fa-chevron-down" ng-show="sbm.reverse" ng-if="sbm.sortedBy === 'title'"></i>
+					</th>
+					<th class="sb-table__cell sb-table__header" ng-click="sbm.sortColumn('sb_version')">
+						Version
+						<i class="fa fa-chevron-up" ng-show="!sbm.reverse" ng-if="sbm.sortedBy === 'sb_version'"></i>
+						<i class="fa fa-chevron-down" ng-show="sbm.reverse" ng-if="sbm.sortedBy === 'sb_version'"></i>
+					</th>
+					<th class="sb-table__cell sb-table__header">ATA</th>
+					<th class="sb-table__cell sb-table__header__lod">Level of Disassembly</th>
+					<th class="sb-table__cell sb-table__header__comp" ng-click="sbm.sortColumn('compliance_category')">
+						Compliance
+						<i class="fa fa-chevron-up" ng-show="!sbm.reverse" ng-if="sbm.sortedBy === 'compliance_category'"></i>
+						<i class="fa fa-chevron-down" ng-show="sbm.reverse" ng-if="sbm.sortedBy === 'compliance_category'"></i>
+					</th>
+					<th class="sb-table__cell status__column"></th>
+		    </tr>
+		  </thead>
+		  <tbody ng-show="sbm.dataLoaded || sbm.state.noData.show">
+				<tr uib-collapse="sbm.isCollapsed" class="sb-table__row filters">
+					<td class="bulletin__search check__column"></td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.date" ng-change="sbm.clear('date')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.sb_number" ng-change="sbm.clear('sb_number')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.title" ng-change="sbm.clear('title')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.sb_version" ng-change="sbm.clear('sb_version')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.ata" ng-change="sbm.clear('ata')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.ServiceBulletinATA.level_of_disassembly" ng-change="sbm.clear('ServiceBulletinATA.level_of_disassembly')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search">
+						<input ng-model="sbm.search.compliance_category" ng-change="sbm.clear('compliance_category')" class="bulletin__search__input"></input>
+					</td>
+					<td class="bulletin__search"></td>
+				</tr>
+
+				<tr ng-repeat-start="row in sbm.displayedData | filter:sbm.search | offset: sbm.calculateFrom(): sbm.calculateTo() | limitTo: sbm.itemsPerPage" class="sb-table__row sb-table__row__border">
+					<td class="bulletin-status sb-table__cell" ng-class="{'bulletin-status__reviewed' : row.status==='REVIEWED'} ">
+						<span class="fa fa-check"></span>
+					</td>
+					<td class="sb-table__cell">{{ row.date }}</td>
+					<td class="sb-table__cell">{{ row.sb_number }}</td>
+					<td class="sb-table__cell">{{ row.title }}</td>
+					<td class="sb-table__cell">{{ row.sb_version }}</td>
+					<td class="sb-table__cell">
+						<div ng-repeat="ata in row.ata" class="ata-number__row" ng-class="{'red-text': ata === 'N/A'}">
+							{{ ata }}
+						</div>
+					</td>
+					<td class="sb-table__cell">
+						<div ng-repeat="ata in row.ServiceBulletinATA">
+							<level-circles
+								count="4"
+								start-from="sbm.levelsStart"
+								selected-level="{{ata.level_of_disassembly}}"
+								on-selection="sbm.selectLevel($event, ata, row)"
+							>
+							</level-circles>
+						</div>
+					</td>
+					<td class="sb-table__cell">
+						{{ row.compliance_category }}
+					</td>
+					<td class="sb-table__cell pointer" ng-if="sbm.bulletinExpandFlag" ng-click="row.expanded=!row.expanded">
+						<span ng-show="row.expanded" class="u-p fa fa-chevron-up"></span>
+						<span ng-hide="row.expanded" class="u-p fa fa-chevron-down"></span>
+					</td>
+				</tr>
+				<tr ng-repeat-end ng-show="row.expanded">
+					<td colspan="4" class="u-pl++">
+						<div class="wrapHr grey-text">
+							Modules and LRUs
+							<hr class="line-after-text">
+						</div>
+						<dynamic-list row-content="row.ata" add-text="Add ATA" title-text="ATA" next-title-text="Disassembly">
+							<level-circles
+								count="4"
+								start-from="sbm.levelsStart"
+								selected-level="{{$parent.row.level_of_disassembly}}"
+								on-selection="sbm.selectLevel($event, $parent.row, row)"
+							>
+							</level-circles>
+						</dynamic-list>
+					</td>
+				</tr>
+				<tr ng-if="!sbm.state.none.show" class="sb-table__row text__center" ng-class="{'error-message': sbm.state.error.show || sbm.state.noFilterMatch.show}">
+					<td colspan="9">{{ sbm.findMessage() }}</td>
+				</tr>
+		  </tbody>
+		</table>
+		<div ng-hide="sbm.dataLoaded || sbm.state.noData.show" class="sb-table__cell">
+			<px-spinner size="50" class="engine__spinner spinner__center"></px-spinner>
+		</div>
+		<div ng-if="!(sbm.data|filter:sbm.search).length && sbm.state.none.show && sbm.dataLoaded" ng-init="sbm.setErrorStates('noFilterMatch')"></div>
+		<div ng-if="(sbm.data|filter:sbm.search).length" ng-init="sbm.setErrorStates('none')"></div>
+	</div>
+
+<!-- Pagination -->
+	<div ng-show="(sbm.displayedData|filter:sbm.search).length && sbm.dataLoaded" class='paginationSearch horizontal u-pl++ u-p' id='search-pagination'>
+		<span class='paginationSearch__span u-pr+'>{{sbm.calculateFrom()+1}}-{{(sbm.calculateTo() < (sbm.displayedData|filter:sbm.search).length)? sbm.calculateTo() : (sbm.displayedData|filter:sbm.search).length}} of {{(sbm.displayedData|filter:sbm.search).length}}</span>
+		<div uib-pagination
+			total-items="(sbm.displayedData|filter:sbm.search).length"
+			max-size="7" ng-model="sbm.currentPage"
+			items-per-page="sbm.itemsPerPage"
+			boundary-link-numbers="true"
+			direction-links="true"
+			previous-text="&lt;"
+			next-text="&gt;">
+		</div>
+	</div>
+</px-card>

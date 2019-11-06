@@ -1,0 +1,7 @@
+<div class="circle clickable"
+	ng-repeat="i in $ctrl.createArray()"
+	ng-click="$ctrl.setSelectedLevel(i)"
+	ng-class="{'circle-red': $ctrl.selection.level===i}"
+>
+	{{i}}
+</div>

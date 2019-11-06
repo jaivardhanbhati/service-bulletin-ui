@@ -1,0 +1,203 @@
+.layout__padding {
+	padding-left: 1em;
+}
+.nav {
+	font-size: 16px;
+}
+.nav-tab {
+	font-weight: bold;
+}
+.nav__item {
+	padding-bottom: .5em;
+}
+
+.nav__item__text {
+	padding: 5px;
+}
+
+.nav__item:hover {
+	.nav__item__text {
+		border-bottom: 5px solid $medium-gray;
+	}
+	cursor: pointer;
+}
+.nav__item--selected {
+	color: $ge-blue;
+	.nav__item__text {
+		border-bottom: 5px solid $ge-blue !important;
+	}
+}
+
+.ws-header {
+	padding: 1em;
+}
+
+.ws-header__title {
+	margin: 0;
+	color: black;
+}
+
+.sb-table{
+	width:100%;
+}
+
+.sb-table__row {
+	height: 4em;
+}
+
+.sb-table__row:nth-child(odd){
+	background-color: $light-gray;
+}
+.sb-table__cell {
+	padding: 1em;
+}
+
+.sb-table__header {
+	width: 8%;
+}
+.sb-table__header__date {
+	width: 12%;
+}
+.sb-table__header__title {
+	width: 24%;
+}
+.sb-table__header__comp {
+	width: 13%
+}
+.sb-table__header__lod {
+	width: 18%;
+}
+
+.sb-table__row__border td {
+  border-bottom: 2px solid white;
+}
+
+.status__column {
+	width: 1%;
+}
+
+tr.collapse.in {
+	display: table-row;
+}
+.collapse {
+	display: none;
+}
+
+.bulletin-tableHead {
+	background-color: $medium-blue;
+	text-transform: uppercase;;
+	text-align: left;
+	color: white;
+}
+
+.bulletin__search {
+	background-color: $medium-blue;
+	padding: 0 0 .5em 1em;
+}
+
+.bulletin__search__input {
+	width: 80%;
+}
+
+.bulletin-status {
+	color: white;
+	background-color: $medium-gray;
+	width: 1%;
+}
+
+.bulletin-status__reviewed {
+	background-color: $green;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.paginationSearch {
+	clear: both;
+	display: table;
+	margin: 0 auto;
+	align-items:center;
+	padding: 0;
+}
+
+.paginationSearch__span {
+	float: left;
+	font-style:italic;
+}
+
+.paginationSearch ul {
+	display: inline;
+}
+
+.paginationSearch li {
+	list-style-type: none;
+	float: left;
+}
+
+.paginationSearch li a {
+	color: #000;
+	padding: 3px 8px;
+	margin: 3px 2px;
+	text-decoration: none;
+	border-radius: 70%;
+}
+
+/* Change the link color on hover */
+.paginationSearch li a:hover {
+	background-color: $ge-blue;
+	color: white;
+	border-radius: 100%;
+}
+.paginationSearch .disabled a {
+	color: #aaa;
+	border-radius: 100%;
+	cursor: disabled;
+}
+
+.paginationSearch .disabled a:hover {
+	color: #bbb;
+	cursor: not-allowed;
+	background: none;
+}
+
+.paginationSearch .active a {
+	background-color: $ge-blue;
+	color: white;
+	border-radius: 100%;
+}
+
+.grey-text {
+	color: $dark-gray;
+}
+
+.red-text {
+	color: $red;
+}
+
+.text__center {
+	text-align: center;
+}
+
+.spinner__center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.error-message {
+	color: $orange;
+	padding: 1.5em;
+}
+
+.ata-number__row{
+	line-height: 1.75em;
+}
+.line-after-text {
+	display:inline-block;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.wrapHr {
+	overflow:hidden;
+	white-space:nowrap;
+}

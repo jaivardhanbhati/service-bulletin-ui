@@ -1,0 +1,11 @@
+applications:
+  - name: aviation-service-bulletin-ui-app
+    host: service-bulletin-ui-dev
+    buildpack: nodejs_buildpack
+    path: dist
+    memory: 256M
+    disk_quota: 1G
+    command: node app.js
+
+    env:
+      example: https://www.ge.com

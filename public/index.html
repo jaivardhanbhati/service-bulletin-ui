@@ -1,0 +1,39 @@
+
+<script src="bower_components/px/dist/px.min.js"></script>
+
+<!-- Just needed for IE -->
+<script src="bower_components/es6-promise/es6-promise.min.js"></script>
+
+<!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+<!-- Import px polymer components though a separate file so that we can vulcanize them -->
+<link rel="import" href="elements.html">
+
+
+<link type="text/css" rel="stylesheet" href="styles/app.css">
+
+<!-- ui-microapp build version: ##BUILDVERSION##  (DO NOT DELETE THIS BLOCK) -->
+
+<section id="content" class="pxh-wrapper">
+  <section class="pxh-view pxh-view--wide@md pxh-view--narrow@lg" id="js-view">
+    <section>
+      <div role="region" ui-view>
+        <div class="pxh-spinner pxh-spinner--large"></div>
+      </div>
+    </section>
+  </section>
+</section>
+
+<script src="jspm_packages/system.js"></script>
+<script src="config.js"></script>
+<script>
+  /* global System */
+  System.import('main');
+  System.import('angular-toastr/dist/angular-toastr.min.css!')
+</script>
+<script>
+  function createNewModal(evt) {
+    Polymer.dom(document).querySelector("#pxmodal").modalButtonClicked();
+  }
+</script>

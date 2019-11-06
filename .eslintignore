@@ -1,0 +1,10 @@
+coverage
+node_modules
+public/bower_components
+public/jspm_packages
+dist
+public/config.js
+docs
+gulp-tasks
+test/e2e
+docs

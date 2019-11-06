@@ -1,0 +1,36 @@
+.pxh-card {
+  //@extend %box;
+  //@extend %box--flush;
+  margin-top: $inuit-base-spacing-unit--tiny;
+  margin-right: $inuit-base-spacing-unit--tiny;
+  margin-left: $inuit-base-spacing-unit--tiny;
+  padding-right: $inuit-base-spacing-unit--large;
+  padding-left: $inuit-base-spacing-unit--large;
+  padding-bottom: $inuit-base-spacing-unit--huge;
+  header {
+    border-bottom: 1px solid transparent;
+    margin-bottom: $inuit-base-spacing-unit--large;
+    height: calculateRem(60px);
+    h3 {
+      @include inuit-font-size(15px,false);
+    }
+  }
+  &:last-of-type {
+    margin-bottom: $inuit-base-spacing-unit--tiny;
+  }
+}
+
+.pxh-card {
+  background-color: $white;
+  header {
+    border-bottom-color: $gray5;
+    .fa {
+      color: $black;
+    }
+    button {
+      .fa {
+        color: $gray7;
+      }
+    }
+  }
+}

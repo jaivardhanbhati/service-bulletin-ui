@@ -1,0 +1,11 @@
+
+<div>
+  <px-dropdown id="{{$ctrl.dropdownId}}" display-value="{{$ctrl.selectedItem ? $ctrl.selectedItem : $ctrl.selectMsg}}" value="{{$ctrl.selectedItem}}" class="dropdown">
+    <px-dropdown-content class="px-dropdown-content"
+      extend-dropdown="true"
+      extend-dropdown-by="25"
+      max-cont-character-width="{{$ctrl.charWidth}}"
+      items="{{$ctrl.dropdownOptions}}">
+    </px-dropdown-content>
+  </px-dropdown>
+</div>

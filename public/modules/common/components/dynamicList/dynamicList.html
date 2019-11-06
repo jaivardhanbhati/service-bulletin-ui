@@ -1,0 +1,16 @@
+<div class="whole-row">
+	<span class="left-column">{{ $ctrl.titleText }}</span>
+	<span class="right-column">{{ $ctrl.nextTitleText }}</span>
+</div>
+<ul class="noBullets u-mt-">
+	<li ng-repeat="row in $ctrl.rowContent" class="whole-row">
+			<span class="left-column u-mt-">{{ row }}</span>
+			<div class="right-column u-mt-">
+				<ng-transclude></ng-transclude>
+				<i class="fa fa-times" ng-click="$ctrl.deleteRow()"></i>
+			</div>
+	</li>
+</ul>
+<div class="add-text__button" ng-click="$ctrl.addRow()">
+	<i class="fa fa-plus-circle"></i> {{$ctrl.addText}}
+</div>

@@ -1,0 +1,15 @@
+.circle {
+	width: 1.6em;
+	height: 1.6em;
+	line-height: 1.6em;
+	border-radius: 25px;
+	background: $medium-gray;
+	display: inline-block;
+	text-align: center;
+	margin: .25em;
+}
+
+.circle-red {
+	background-color: $orange;
+	color: white;
+}

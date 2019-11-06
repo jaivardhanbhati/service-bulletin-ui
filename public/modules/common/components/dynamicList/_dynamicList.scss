@@ -1,0 +1,19 @@
+.add-text__button {
+	color: $medium-gray;
+	cursor: pointer;
+}
+.noBullets {
+	list-style-type:none;
+	padding-left: 0px;
+}
+.whole-row {
+	width: 100%;
+}
+.left-column {
+	width: 40%;
+	float: left;
+}
+.right-column {
+	width: 60%;
+	float: left;
+}
